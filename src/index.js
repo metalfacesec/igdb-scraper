@@ -11,6 +11,11 @@ async function scrapeData() {
         let platforms = await igdb.getPlatforms();
         MySql.runQuery(config, MySql.getPlatformsInsertQuery(platforms));
         console.log('Platform db updated');
+
+        let games = await igdb.getGamesPage();
+        await MySql.runQuery(config, MySql.getGamesInsertQuery(games));
+        await MySql.runQuery(config, MySql.getGamesPlatformsInsertQuery(games));
+        console.log('Games db page updated');
     } catch (error) {
         console.log(error);
     }

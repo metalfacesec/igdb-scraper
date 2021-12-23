@@ -11,6 +11,29 @@ class MySql {
         return Utils.removeLastCharacter(query);
     }
 
+    static getGamesInsertQuery(games) {
+        let query = "INSERT IGNORE INTO games (id, name, summary) VALUES ";
+        games.forEach(game => {
+            query += `(${game.id}, "${game.name}", "${typeof game.summary === 'string' ? escape(game.summary.replace('\n', ' ')) : ''}"),`;
+        });
+
+        return Utils.removeLastCharacter(query);
+    }
+
+    static getGamesPlatformsInsertQuery(games) {
+        let query = "INSERT IGNORE INTO game_platforms (gameId, platformId) VALUES ";
+        games.forEach(game => {
+            if (!Array.isArray(game.platforms) || !game.platforms.length) {
+                return;
+            }
+            game.platforms.forEach(platform => {
+                query += `(${game.id}, ${platform}),`;
+            });
+        });
+
+        return Utils.removeLastCharacter(query);
+    }
+
     static runQuery(config, query) {
         return new Promise((resolve, reject) => {
             let con = mysql.createConnection({

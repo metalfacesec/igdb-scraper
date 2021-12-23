@@ -20,18 +20,21 @@ class Igdb {
         this.accessToken = response.data.access_token;
     }
 
-    async getPlatforms() {
-        let offset = 0;
-        let allPlatforms = [];
-        let url = 'https://api.igdb.com/v4/platforms';
-        let headers = {
+    getAuthHeaders() {
+        return{
             'Client-ID': this.clientId,
             'Authorization': `Bearer ${this.accessToken}`,
             'Content-Type': 'text/plain'
         };
+    }
+
+    async getPlatforms() {
+        let offset = 0;
+        let allPlatforms = [];
+        let url = 'https://api.igdb.com/v4/platforms';
 
         while (true) {
-            let response = await axios.post(url, `fields *; limit 100; offset ${offset};`, { headers: headers });
+            let response = await axios.post(url, `fields *; limit 100; offset ${offset};`, { headers: this.getAuthHeaders() });
             if (!Array.isArray(response.data) || !response.data.length) {
                 break;
             }
@@ -43,6 +46,17 @@ class Igdb {
         }
 
         return allPlatforms;
+    }
+
+    async getGamesPage(offset=0) {
+        let url = 'https://api.igdb.com/v4/games';
+
+        let response = await axios.post(url, `fields *; limit 100; offset ${offset};`, { headers: this.getAuthHeaders() });
+        if (!Array.isArray(response.data) || !response.data.length) {
+            return false;
+        }
+
+        return response.data;
     }
 }
 

@@ -10,7 +10,7 @@ async function scrapeData() {
         await igdb.getAccessToken();
 
         let platforms = await igdb.getPlatforms();
-        MySql.runQuery(config, MySql.getPlatformsInsertQuery(platforms));
+        await MySql.runQuery(config, MySql.getPlatformsInsertQuery(platforms));
         console.log('Platform db updated');
 
         let offset = 0;

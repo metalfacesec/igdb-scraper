@@ -14,7 +14,12 @@ async function getAccessToken(clientId, clientSecret) {
     return response.data.access_token;
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function getPlatforms(clientId, accessToken) {
+    let offset = 0;
     let url = 'https://api.igdb.com/v4/platforms';
     let headers = {
         'Client-ID': clientId,
@@ -22,8 +27,16 @@ async function getPlatforms(clientId, accessToken) {
         'Content-Type': 'text/plain'
     };
 
-    let response = await axios.post(url, 'fields *;', { headers: headers });
+    let response = await axios.post(url, `fields *; limit 100; offset ${offset};`, { headers: headers });
     console.log(response.data);
+    offset += 100;
+    while (Array.isArray(response.data) && response.data.length) {
+        response = await axios.post(url, `fields *; limit 100; offset ${offset};`, { headers: headers });
+        offset += 100;
+        console.log(response.data);
+        await sleep(500);
+    }
+    
 }
 
 async function scrapeData() {

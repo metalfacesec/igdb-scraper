@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/metalfacesec/igdb-scraper#readme",
   "dependencies": {
-    "axios": "^0.24.0"
+    "axios": "^0.24.0",
+    "mysql": "^2.18.1"
   }
 }

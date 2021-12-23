@@ -1,4 +1,7 @@
 {
     "client_id": "XXXXX",
-    "client_secret": "XXXXX"
+    "client_secret": "XXXXX",
+    "db_host": "XXXXX",
+    "db_username": "XXXXX",
+    "db_password": "XXXXX"
 }

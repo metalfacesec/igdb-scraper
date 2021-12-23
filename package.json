@@ -1,0 +1,22 @@
+{
+  "name": "igdb-scraper",
+  "version": "1.0.0",
+  "description": "Scrape the IGDB game database into a local mysql server",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metalfacesec/igdb-scraper.git"
+  },
+  "author": "Sean M",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/metalfacesec/igdb-scraper/issues"
+  },
+  "homepage": "https://github.com/metalfacesec/igdb-scraper#readme",
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}

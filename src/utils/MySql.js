@@ -5,7 +5,7 @@ class MySql {
     static getPlatformsInsertQuery(platforms) {
         let query = "INSERT IGNORE INTO platforms (id, name) VALUES ";
         platforms.forEach(platform => {
-            query += `(${platform.id}, "${platform.name}"),`;
+            query += `(${platform.id}, "${escape(platform.name)}"),`;
         });
 
         return Utils.removeLastCharacter(query);
@@ -14,7 +14,7 @@ class MySql {
     static getGamesInsertQuery(games) {
         let query = "INSERT IGNORE INTO games (id, name, summary) VALUES ";
         games.forEach(game => {
-            query += `(${game.id}, "${game.name}", "${typeof game.summary === 'string' ? escape(game.summary.replace('\n', ' ')) : ''}"),`;
+            query += `(${game.id}, "${escape(game.name)}", "${typeof game.summary === 'string' ? escape(game.summary.replace('\n', ' ')) : ''}"),`;
         });
 
         return Utils.removeLastCharacter(query);
